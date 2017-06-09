@@ -46,19 +46,27 @@ function loadPlayer() {
 
 function loadPlayerInfo()
 {
-    $.getJSON("php/loadPlayer2.php", {
-        sumonner: $("#summonerInput").val(),
+    $.post("php/loadPlayer2.php", {
+        summoner: $("#summonerInput").val(),
         region: $("#regionSelect").val()
-    }).done(function(data){
-
+    }, "json").done(function(data){
+        var result = JSON.parse(data);
+        if(result["status"] === "ERROR")
+        {
+            showLoadError(result["message"]);
+        }
     }).fail(function(){
-        $("#summonerLoadingGifContainer").fadeOut();
-        $("#summonerLoader").animate({
-            opacity:1,
-            height:"toggle"
-        });
-        $("#summonerFormAlert").show();
-        $("#summonerFormAlertMessage").text("Could not connect to IP Planner server");
+        showLoadError("Could not connect to IP Planner server");
     });
 }
 
+function showLoadError(message)
+{
+    $("#summonerLoadingGifContainer").fadeOut();
+    $("#summonerLoader").animate({
+        opacity:1,
+        height:"toggle"
+    });
+    $("#summonerFormAlert").show();
+    $("#summonerFormAlertMessage").text(message);
+}

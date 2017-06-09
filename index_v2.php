@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <title>IP Planner</title>
 
+        <script type="text/javascript" src="../js/ga_script.js"></script>
+
         <!-- JQuery 3.2.1 -->
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
@@ -12,6 +14,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 	    <script src="js/js.cookie.js"></script>
+
+        <script src="js/js.cookie.js"></script>
 
         <link rel="stylesheet" href="css/stylesheet.css">
         <link rel="stylesheet" href="css/stylesheet2.css">
@@ -29,6 +33,14 @@
         <script src="js/planner.js"></script>
     </head>
     <body>
+      	<div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
         <div class="container marketing" id="marketingContainer">
             <div class="row">
                 <div class="col-lg-12">
