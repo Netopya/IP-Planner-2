@@ -11,7 +11,10 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+	    <script src="js/js.cookie.js"></script>
+
         <link rel="stylesheet" href="css/stylesheet.css">
+        <link rel="stylesheet" href="css/stylesheet2.css">
 
         <meta property="og:type" content="website"> 
         <meta property="og:url" content="http://www.netopyaplanet.com/ipplanner/"> 
@@ -22,6 +25,8 @@
         <meta property="fb:app_id" content="694334497298278">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="js/planner.js"></script>
     </head>
     <body>
         <div class="container marketing" id="marketingContainer">
@@ -67,6 +72,10 @@
             <div class="row">
                 <div id="summonerLoader" class="col-lg-12">
                     <div class="jumbotron">
+                        <div id="summonerFormAlert" class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <span id="summonerFormAlertMessage">Better check yourself, you're not looking too good.</span>
+                        </div>
                         <h1>Lookup your League of Legends IP rate:</h1>
                         <form onsubmit="loadPlayer(); return false;">
                             <div class="form-inline">
@@ -97,6 +106,12 @@
                             </label>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="summonerLoadingGifContainer" class="col-lg-12">
+                    <img src="img/ajax-loader.gif" id="summonerLoadingGif"/><br/>
+                    <span>Retrieving information...</span>
                 </div>
             </div>
         </div>
