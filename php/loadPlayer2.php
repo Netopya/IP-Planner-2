@@ -83,17 +83,44 @@ function loadPlayer() {
 
     $result = curl_exec($curl);
     $zstatus = curl_getinfo($curl);
-    
+    curl_close($curl);
+
     $recentMatchesData = json_decode($result, true);
     $recentMatchList = $recentMatchesData["matches"];
     $outputIds = "";
 
+    $matches = array();
+
     for($i = 0; $i < count($recentMatchList); $i++)
     {
-        $outputIds .= " " . $recentMatchList[$i]["gameId"];
+        $curl = curl_init("https://". $lolregion . ".api.riotgames.com/lol/match/v3/matches/" . $recentMatchList[$i]["gameId"] . "?api_key=" . $lolkey);
+        curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => 1));
+
+        $result = curl_exec($curl);
+        $zstatus = curl_getinfo($curl);
+        $httpcode = $zstatus["http_code"];
+
+        curl_close($curl);
+
+        $matchInfo = json_decode($result, true);
+
+        array_push($matches, array(
+            "gameId" => $recentMatchList[$i]["gameId"],
+            "gameDate" => $recentMatchList[$i]["timestamp"],
+            "gameDuration" => $matchInfo["gameDuration"],
+            "gameMode" => $matchInfo["gameMode"],
+            "gameType" => $matchInfo["gameType"],
+            "champion" => $recentMatchList[$i]["champion"],
+            "teams" => array_map(function($o) { return array("win" => $o["win"], "teamId"=> $o["teamId"]); }, $matchInfo["teams"]),
+            "participants" => array_map(function($o) { return array("participantId" => $o["participantId"], "teamId" => $o["teamId"], "championId" => $o["championId"]); }, $matchInfo["participants"])
+        ));
+
+        //$outputIds .= " " . $recentMatchList[$i]["gameId"];
     }
 
-    return array("status" => "ERROR", "message" => "Found matches " . $outputIds);
+    return array("status" => "SUCCESS", "matches" => $matches);
+
+
 }
 	
 echo json_encode(loadPlayer());
