@@ -50,7 +50,15 @@ function loadPlayerInfo()
         summoner: $("#summonerInput").val(),
         region: $("#regionSelect").val()
     }, "json").done(function(data){
-        var result = JSON.parse(data);
+        var result;
+        
+        try {
+            result = JSON.parse(data);
+        } catch(e) {
+            showLoadError("IP Planner server response error");
+            return false;
+        }
+
         if(result["status"] === "ERROR")
         {
             showLoadError(result["message"]);

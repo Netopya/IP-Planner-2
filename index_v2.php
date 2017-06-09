@@ -97,16 +97,18 @@
                                 </div>
                                 <label>Region:
                                     <select id="regionSelect" class="form-control input-lg">
-                                    <option value="NA">NA</option>
-                                    <option value="EUW">EUW</option>
-                                    <option value="EUNE">EUNE</option>
-                                    <option value="BR">BR</option>
-                                    <option value="TR">TR</option>
-                                    <option value="RU">RU</option>
-                                    <option value="LAN">LAN</option>
-                                    <option value="LAS">LAS</option>
-                                    <option value="OCE">OCE</option>
-                                    <option value="KR">KR</option>
+                                        <option value="NA">NA</option>
+                                        <option value="EUW">EUW</option>
+                                        <option value="EUNE">EUNE</option>
+                                        <option value="BR">BR</option>
+                                        <option value="TR">TR</option>
+                                        <option value="RU">RU</option>
+                                        <option value="LAN">LAN</option>
+                                        <option value="LAS">LAS</option>
+                                        <option value="OCE">OCE</option>
+                                        <option value="KR">KR</option>
+                                        <option value="JP">JP</option>
+                                        <option value="PBE">PBE</option>
                                     </select>
                                 </label>
                                 <input type="button" id="summonerGo" class="btn btn-primary btn-lg" value="Go!" onclick="loadPlayer()"/>
