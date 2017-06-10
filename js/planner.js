@@ -263,25 +263,12 @@ function loadChamps() {
 
             // Generate a clickable portrait for each champion
             for(var i = 0; i < champs.length; i++) {
-                $("#portraitsContainer").isotope().append('<li class="champion_port" title="' + champs[i].name + '" data-keywords="' + champs[i].name.toLowerCase() + '" data-champ-id="' + champs[i].id + '"><img src="img/ports/' + champs[i].img + '"/><img src="img/check.png" class="checkmark"></li>');
+                $("#portraitsContainer").isotope().append('<li class="champion_port" title="' + champs[i].name + '" data-keywords="' + champs[i].name.toLowerCase() + '" data-champ-id="' + champs[i].id + '"><img src="img/ports2/' + champs[i].img + '"/><img src="img/check.png" class="checkmark"></li>');
 
                 champips[champs[i].id] =  parseInt(champs[i].ip);
             }
 
-            // Wait a bit so that a descent number of champions have their images loaded in
-			setTimeout(function() {
-                $("#champSelectorContainer").fadeIn(400, function() {
-                    
-                });
-            },0);            
-
-            $("#portraitsContainer").imagesLoaded()
-                .progress(function(imgLoad, image) {
-                    $(image.img).fadeIn();
-                })
-                .always(function() {
-                    $("#portraitsContainer").isotope('layout');
-                });
+            $("#champSelectorContainer").fadeIn(400);
         }
     });
 }

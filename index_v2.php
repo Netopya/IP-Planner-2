@@ -31,9 +31,6 @@
         <!-- Isotope -->
         <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
-        <!-- Images Loaded -->
-        <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-
         <link rel="stylesheet" href="css/stylesheet.css">
         <link rel="stylesheet" href="css/stylesheet2.css">
 
