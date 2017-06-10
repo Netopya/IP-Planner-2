@@ -6,6 +6,7 @@
 
 var rates = {"Win": {base: 18, rate: 2.312}, "Fail": {base: 16, rate: 1.405}, "Unknown": {base: 17, rate: 1.859}};
 var firstWinIP = 150;
+var champips = {};
 
 function loadPlayer() {
     var name = $("#summonerInput").val();
@@ -14,7 +15,7 @@ function loadPlayer() {
     {
         $("#summonerInputGroup").addClass("has-error");
         $("#summonerFormAlert").show();
-        $("#summonerFormAlertMessage").text("Invalid Summoner Name");
+        $("#summonerFormAlertMessage").html("Invalid Summoner Name");
         return false;
     }
 
@@ -83,12 +84,12 @@ function showLoadError(message)
         height:"toggle"
     });
     $("#summonerFormAlert").show();
-    $("#summonerFormAlertMessage").text(message);
+    $("#summonerFormAlertMessage").html(message);
 }
 
 function parseMatchStats(summoner, matches)
 {
-    $("#summonerLoadingGifContainer").fadeOut();
+    $("#summonerNameOutput").html(summoner);
 
     var days = {};
 
@@ -104,7 +105,7 @@ function parseMatchStats(summoner, matches)
 
         if(days[matches[i].day] === undefined)
         {
-            days[matches[i].day] = {ip: 0, matches: []};
+            days[matches[i].day] = {ip: 0, matches: [], dayName: matches[i].moment.format("MMM Do")};
         }
 
         days[matches[i].day].matches.push(matches[i]);
@@ -112,6 +113,7 @@ function parseMatchStats(summoner, matches)
     }
 
     var dayKeys = Object.keys(days);
+    var totalIP = 0;
 
     for(var i = 0; i < dayKeys.length; i++)
     {
@@ -124,7 +126,12 @@ function parseMatchStats(summoner, matches)
                 break;
             }
         }
+
+        totalIP += days[dayKeys[i]].ip;
     }
+
+    var ipRate = Math.round(totalIP / dayKeys.length);
+    $("#recentIPperiod").html(ipRate);
 
     console.log(matches);
     console.log(days);
@@ -132,6 +139,44 @@ function parseMatchStats(summoner, matches)
     var $table = $('#table');
 
     $table.bootstrapTable({data: matches});
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+
+    var ips = listIPValues(days);
+    console.log(ips);
+
+    var dayLabels = listDayLabels(days);
+
+    
+
+    $("#summonerLoadingGifContainer").animate({
+        opacity:0,
+        height:"toggle"
+    }, function() {
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dayLabels.reverse(),
+                datasets: [{
+                    label: summoner,
+                    data: ips.reverse(),
+                    backgroundColor: "rgba(151,187,205,0.5)",
+                    pointBorderColor: "rgba(255,255,255,1)",
+                    pointBackgroundColor: "rgba(151,187,205,1)",
+                    pointRadius: 5,
+                    borderColor: "rgba(151,187,205,1)"
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {display: false}
+            }
+        });
+
+        loadChamps();
+    });
+    $("#RecentIPanalysisContainer").fadeIn();
+
 }
 
 function formatTime(seconds)
@@ -174,4 +219,106 @@ function estimateIP(match)
     var rate = rates[match.outcome];
 
     return Math.floor(rate.base + Math.floor(match.gameDuration / 60) * rate.rate);
+}
+
+function listIPValues(days)
+{
+    var ips = [];
+
+    for(var o in days) {
+        ips.push(days[o].ip);
+    }
+
+    return ips;
+}
+
+function listDayLabels(days)
+{
+    var labels = [];
+
+    for(var o in days) {
+        labels.push(days[o].dayName);
+    }
+
+    return labels;
+}
+
+function loadChamps() {
+    $.ajax({
+        url: "champs.json",
+        success: function (data) {
+            champs = data.data;
+
+            // Load Isotope
+            $('#portraitsContainer').isotope({
+                // options
+                itemSelector: '.champion_port',
+                hiddenStyle: {
+                    opacity: 0
+                },
+                visibleStyle: {
+                    opacity: 1
+                }
+            });
+
+            // Generate a clickable portrait for each champion
+            for(var i = 0; i < champs.length; i++) {
+                $("#portraitsContainer").isotope().append('<li class="champion_port" title="' + champs[i].name + '" data-keywords="' + champs[i].name.toLowerCase() + '" data-champ-id="' + champs[i].id + '"><img src="img/ports/' + champs[i].img + '"/><img src="img/check.png" class="checkmark"></li>');
+
+                champips[champs[i].id] =  parseInt(champs[i].ip);
+            }
+
+            // Wait a bit so that a descent number of champions have their images loaded in
+			setTimeout(function() {
+                $("#champSelectorContainer").fadeIn(400, function() {
+                    
+                });
+            },0);            
+
+            $("#portraitsContainer").imagesLoaded()
+                .progress(function(imgLoad, image) {
+                    $(image.img).fadeIn();
+                })
+                .always(function() {
+                    $("#portraitsContainer").isotope('layout');
+                });
+        }
+    });
+}
+
+function searchChamps() {
+    var searchKey = $("#championSearchBox").val().trim().toLowerCase();
+    var foundChamps = 0;
+    
+    var portContainer = $('#championPortraitsContainer');
+    portContainer.stop(); //Stop any animations
+    var curHeight = portContainer.height();
+    
+    // Filter champions based on the serch term
+    $('#portraitsContainer').isotope({
+        filter: function() {
+            return !searchKey || $(this).attr("data-keywords").indexOf(searchKey) >= 0;
+        }
+    });
+
+    // If no champions found stylize the search box
+    if($("#portraitsContainer").isotope('getFilteredItemElements').length == 0)
+    {
+        $("#championSearchGroup").addClass("has-error")
+    }
+    else
+    {
+        $("#championSearchGroup").removeClass("has-error");
+    }
+    
+    $('html,body').stop(); //Stop any scrolling
+    //http://stackoverflow.com/questions/5003220/javascript-jquery-animate-to-auto-height
+    
+    // smoothly grow or shrink the champions container
+    var autoHeight = portContainer.css('height', 'auto').height();
+    portContainer.height(curHeight).animate({height: autoHeight}, 600, function ()
+    {
+        // scroll back to the search box
+        $('html,body').animate({scrollTop: $("#championSearchGroup").offset().top}, 600);
+    });
 }

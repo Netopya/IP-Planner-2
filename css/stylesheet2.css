@@ -5,3 +5,24 @@
 #table-container {
     display: none;
 }
+
+#chartContainer {
+    height: 150px;
+    position: relative;
+}
+
+#summonerNameNotifcation {
+    display:block;
+}
+
+#IPTimeResultContainer {
+    display: none;
+}
+
+#portraitsContainer li{
+    background-color: #7b7b7b;
+}
+
+#portraitsContainer img{
+    display: none;
+}

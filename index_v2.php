@@ -23,9 +23,16 @@
         <!-- Moment.js 2.18.1 -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
 
+        <!-- Chart.js 2.6.0 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" integrity="sha256-SiHXR50l06UwJvHhFY4e5vzwq75vEHH+8fFNpkXePr0=" crossorigin="anonymous"></script>
+
 	    <script src="js/js.cookie.js"></script>
 
-        <script src="js/js.cookie.js"></script>
+        <!-- Isotope -->
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+
+        <!-- Images Loaded -->
+        <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 
         <link rel="stylesheet" href="css/stylesheet.css">
         <link rel="stylesheet" href="css/stylesheet2.css">
@@ -137,6 +144,62 @@
                     <img src="img/ajax-loader.gif" id="summonerLoadingGif"/><br/>
                     <span>Retrieving information...</span>
                 </div>
+            </div>
+            <div class="row" id="RecentIPanalysisContainer">
+                <div class="col-lg-12">
+                    <div id="summonerNameNotifcation" class="alert alert-info" role="alert">Welcome <strong><span id="summonerNameOutput"></span></strong>!</div>
+                </div>
+                <div class="col-lg-12">
+                    <h1>IP per day of your last 20 matches</h1>
+                </div>
+                <div id="chartContainer" class="col-lg-12">
+                    <canvas id="myChart"></canvas>
+                </div>
+                <div class="col-lg-12">
+                    <span>That's an estimated rate of <span id="recentIPperiod"></span><img src="img/15px-IpPoints.png"/>/day</span>
+                </div>
+            </div>
+            <div class="row" id="champSelectorContainer">
+                <div class="col-lg-12">
+                    <h1>Which champions would you like to unlock?</h1>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <span>I already know how much IP I want <input class="btn btn-primary" type="button" value="Skip" onclick="skipChampSelect()"/></span>
+                        </div>
+                        <div class="col-lg-4 col-lg-offset-2">
+                            <div id="championSearchGroup" class="form-group has-feedback">
+                                <input type="text" class="form-control" id="championSearchBox" placeholder="Search" onchange="searchChamps()" onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"/>
+                                <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12" id="championPortraitsContainer">
+                    
+                    <ul id="portraitsContainer">
+
+                    </ul>
+                </div>
+                
+                <div class="championIPResult row">
+                    <div class="col-md-6">
+                        <span>Champions selected: <span id="numberOfChampsSelected">0</span></span>
+                    </div>
+                    <div class="col-md-6">
+                        <span>Total IP: <span id="totalIPSum">0</span><img src="img/15px-IpPoints.png"/></span>
+                    </div>				
+                </div>
+                
+            </div>
+            <div class="row" id="specifyIPContainer">
+                <div class="col-lg-12">
+                    <span>How much IP would you like? <input type="text" id="manualIPtext" onkeyup="manualIPCalc()" class="form-control"/></span>
+                </div>	
+            </div>
+            <div class="row" id="IPTimeResultContainer">
+                <div class="col-lg-12">
+                    <h1>It will take you <span id="IPTimeResult"></span> days to earn enough ip!</h1>
+                </div>	
             </div>
             <div id="table-container" class="row">
                 <table class="table table-bordered" id="table">
