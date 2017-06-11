@@ -1,7 +1,35 @@
 (function($){
     $.isBlank = function(obj){
-    return(!obj || $.trim(obj) === "");
+        return(!obj || $.trim(obj) === "");
     };
+
+    $.ajax({
+        url: "champs.json",
+        success: function (data) {
+            champs = data.data;
+
+            // Load Isotope
+            $('#portraitsContainer').isotope({
+                // options
+                itemSelector: '.champion_port',
+                hiddenStyle: {
+                    opacity: 0
+                },
+                visibleStyle: {
+                    opacity: 1
+                }
+            });
+
+            // Generate a clickable portrait for each champion
+            for(var i = 0; i < champs.length; i++) {
+                $("#portraitsContainer").isotope().append('<li class="champion_port" title="' + champs[i].name + '" data-keywords="' + champs[i].name.toLowerCase() + '" data-champ-id="' + champs[i].id + '"><img src="img/ports2/' + champs[i].img + '"/><img src="img/check.png" class="checkmark"></li>');
+
+                champips[champs[i].id] =  parseInt(champs[i].ip);
+            }
+
+            
+        }
+    });
 })(jQuery);
 
 var rates = {"Win": {base: 18, rate: 2.312}, "Fail": {base: 16, rate: 1.405}, "Unknown": {base: 17, rate: 1.859}};
@@ -173,7 +201,7 @@ function parseMatchStats(summoner, matches)
             }
         });
 
-        loadChamps();
+        $("#champSelectorContainer").fadeIn(400);
     });
     $("#RecentIPanalysisContainer").fadeIn();
 
@@ -241,36 +269,6 @@ function listDayLabels(days)
     }
 
     return labels;
-}
-
-function loadChamps() {
-    $.ajax({
-        url: "champs.json",
-        success: function (data) {
-            champs = data.data;
-
-            // Load Isotope
-            $('#portraitsContainer').isotope({
-                // options
-                itemSelector: '.champion_port',
-                hiddenStyle: {
-                    opacity: 0
-                },
-                visibleStyle: {
-                    opacity: 1
-                }
-            });
-
-            // Generate a clickable portrait for each champion
-            for(var i = 0; i < champs.length; i++) {
-                $("#portraitsContainer").isotope().append('<li class="champion_port" title="' + champs[i].name + '" data-keywords="' + champs[i].name.toLowerCase() + '" data-champ-id="' + champs[i].id + '"><img src="img/ports2/' + champs[i].img + '"/><img src="img/check.png" class="checkmark"></li>');
-
-                champips[champs[i].id] =  parseInt(champs[i].ip);
-            }
-
-            $("#champSelectorContainer").fadeIn(400);
-        }
-    });
 }
 
 function searchChamps() {
