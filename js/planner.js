@@ -124,7 +124,7 @@ function loadPlayerInfo()
         try {
             result = JSON.parse(data);
         } catch(e) {
-            showLoadError("IP Planner server response error");
+            showLoadError("IP Planner server response error, please try again later");
             return false;
         }
 
@@ -240,25 +240,31 @@ function parseMatchStats(summoner, matches)
             }
         });
 
-        $("#champSelectorContainer").fadeIn(400, function() {
-            // Load Isotope
-            $('#portraitsContainer').isotope({
-                // options
-                itemSelector: '.champion_port',
-                hiddenStyle: {
-                    opacity: 0
-                },
-                visibleStyle: {
-                    opacity: 1
-                },
-                masonry: {
-                    columnWidth: 52,
-                    isFitWidth: true
-                }
-            });
+        $('html,body').animate({scrollTop: $("#RecentIPanalysisContainer").offset().top}, 600);
 
-            isotopeLoaded = true;
-        });
+        setTimeout(function() {
+            $("#champSelectorContainer").fadeIn(400, function() {
+                //$('html,body').animate({scrollTop: $("#RecentIPanalysisContainer").offset().top}, 600);
+
+                // Load Isotope
+                $('#portraitsContainer').isotope({
+                    // options
+                    itemSelector: '.champion_port',
+                    hiddenStyle: {
+                        opacity: 0
+                    },
+                    visibleStyle: {
+                        opacity: 1
+                    },
+                    masonry: {
+                        columnWidth: 52,
+                        isFitWidth: true
+                    }
+                });
+
+                isotopeLoaded = true;
+            });
+        }, 3000);
 
         
     });
