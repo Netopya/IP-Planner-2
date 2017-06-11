@@ -30,6 +30,7 @@
 
         <!-- Isotope -->
         <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>-->
 
         <link rel="stylesheet" href="css/stylesheet.css">
         <link rel="stylesheet" href="css/stylesheet2.css">

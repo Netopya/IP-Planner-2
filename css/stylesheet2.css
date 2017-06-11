@@ -19,6 +19,16 @@
     display: none;
 }
 
+/* place before selected style */
 #portraitsContainer li{
     background-color: #7b7b7b;
+}
+
+#portraitsContainer li{
+    height: 52px;
+    width: 52px;
+}
+
+#portraitsContainer {
+    margin: 0 auto;
 }

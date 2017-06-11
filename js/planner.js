@@ -1,40 +1,77 @@
+var champips = {};
+var selectedChampions = {};
+var rates = {"Win": {base: 18, rate: 2.312}, "Fail": {base: 16, rate: 1.405}, "Unknown": {base: 17, rate: 1.859}};
+var firstWinIP = 150;
+var isotopeLoaded = false;
+var xtotalRate;
+
 (function($){
     $.isBlank = function(obj){
         return(!obj || $.trim(obj) === "");
-    };
+    };    
+})(jQuery);
 
+$(function() {
     $.ajax({
         url: "champs.json",
         success: function (data) {
             champs = data.data;
 
-            // Load Isotope
-            $('#portraitsContainer').isotope({
-                // options
-                itemSelector: '.champion_port',
-                hiddenStyle: {
-                    opacity: 0
-                },
-                visibleStyle: {
-                    opacity: 1
-                }
-            });
-
             // Generate a clickable portrait for each champion
             for(var i = 0; i < champs.length; i++) {
-                $("#portraitsContainer").isotope().append('<li class="champion_port" title="' + champs[i].name + '" data-keywords="' + champs[i].name.toLowerCase() + '" data-champ-id="' + champs[i].id + '"><img src="img/ports2/' + champs[i].img + '"/><img src="img/check.png" class="checkmark"></li>');
+                var content = $('<li class="champion_port" title="' + champs[i].name + '" data-keywords="' + champs[i].name.toLowerCase() + '" data-champ-id="' + champs[i].id + '"><img src="img/ports2/' + champs[i].img + '"/><img src="img/check.png" class="checkmark"></li>');
+                
+                $("#portraitsContainer").append(content);
 
-                champips[champs[i].id] =  parseInt(champs[i].ip);
+                champips[champs[i].id] = {ip: parseInt(champs[i].ip), selected: false};
             }
 
-            
+            $(".champion_port").click(function() {
+                var portrait = $(this);
+
+                portrait.children(".checkmark").toggle();
+                portrait.toggleClass("selectedPortrait");
+
+                var champid = parseInt(portrait.data('champ-id'))
+                var champ = champips[champid];
+                
+                var selected = !champ.selected
+                champ.selected = selected
+                
+                if(selected)
+                {
+                    selectedChampions[champid] = champ;
+                }
+                else
+                {
+                    delete selectedChampions[champid];
+                }
+
+
+                var count = selectedChampions.length;
+			    var totalcip = 0;
+
+                for(var ochamp in selectedChampions)
+                {
+                    totalcip += ochamp.ip;
+                }
+
+                // Display the results
+                $("#numberOfChampsSelected").html(count);
+                $("#totalIPSum").html(totalcip);
+
+                $("#IPTimeResult").text(Math.round(totalcip/xtotalRate));
+
+                // If this is the first click, scroll to the bottom of the page to show the user the result section
+                if(!($("#IPTimeResultContainer").is(":visible"))) {
+                    $("#IPTimeResultContainer").fadeIn();
+                    //window.scrollTo(0,document.body.scrollHeight);
+                    $('html,body').animate({scrollTop: $(document).height()}, 600);
+                }
+            });
         }
     });
-})(jQuery);
-
-var rates = {"Win": {base: 18, rate: 2.312}, "Fail": {base: 16, rate: 1.405}, "Unknown": {base: 17, rate: 1.859}};
-var firstWinIP = 150;
-var champips = {};
+});
 
 function loadPlayer() {
     var name = $("#summonerInput").val();
@@ -159,6 +196,8 @@ function parseMatchStats(summoner, matches)
     }
 
     var ipRate = Math.round(totalIP / dayKeys.length);
+    xtotalRate = ipRate;
+
     $("#recentIPperiod").html(ipRate);
 
     console.log(matches);
@@ -201,7 +240,27 @@ function parseMatchStats(summoner, matches)
             }
         });
 
-        $("#champSelectorContainer").fadeIn(400);
+        $("#champSelectorContainer").fadeIn(400, function() {
+            // Load Isotope
+            $('#portraitsContainer').isotope({
+                // options
+                itemSelector: '.champion_port',
+                hiddenStyle: {
+                    opacity: 0
+                },
+                visibleStyle: {
+                    opacity: 1
+                },
+                masonry: {
+                    columnWidth: 52,
+                    isFitWidth: true
+                }
+            });
+
+            isotopeLoaded = true;
+        });
+
+        
     });
     $("#RecentIPanalysisContainer").fadeIn();
 
@@ -272,6 +331,10 @@ function listDayLabels(days)
 }
 
 function searchChamps() {
+
+    if(!isotopeLoaded)
+        return;
+
     var searchKey = $("#championSearchBox").val().trim().toLowerCase();
     var foundChamps = 0;
     
@@ -280,16 +343,16 @@ function searchChamps() {
     var curHeight = portContainer.height();
     
     // Filter champions based on the serch term
-    $('#portraitsContainer').isotope({
+    $("#portraitsContainer").isotope({
         filter: function() {
-            return !searchKey || $(this).attr("data-keywords").indexOf(searchKey) >= 0;
+            return !searchKey || $(this).data("keywords").indexOf(searchKey) >= 0;
         }
     });
 
     // If no champions found stylize the search box
-    if($("#portraitsContainer").isotope('getFilteredItemElements').length == 0)
+    if($("#portraitsContainer").isotope('getFilteredItemElements').length == 0 && searchKey)
     {
-        $("#championSearchGroup").addClass("has-error")
+        $("#championSearchGroup").addClass("has-error");
     }
     else
     {
