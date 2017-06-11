@@ -48,12 +48,12 @@ $(function() {
                 }
 
 
-                var count = selectedChampions.length;
+                var count = Object.keys(selectedChampions).length;
 			    var totalcip = 0;
 
                 for(var ochamp in selectedChampions)
                 {
-                    totalcip += ochamp.ip;
+                    totalcip += selectedChampions[ochamp].ip;
                 }
 
                 // Display the results
