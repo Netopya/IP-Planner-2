@@ -62,7 +62,7 @@
                     <ul class="nav nav-tabs">
                         <li role="presentation"><a href="../"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Netopyaplanet</a></li>
                         <li role="presentation"><a href="index.php">IP Planner home</a></li>
-                        <li role="presentation" class="active"><a href="index_v2.php">IP Planner 2 alpha</a></li>
+                        <li role="presentation" class="active"><a href="index_v2.html">IP Planner 2 alpha</a></li>
                         <li role="presentation"><a href="about.php">About &amp; Help</a></li>
                     </ul>
                 </div>
@@ -117,7 +117,7 @@
                             <div class="form-inline">
                                 <div class="form-group" id="summonerInputGroup">
                                     <label class="sr-only" for="summonerInput">Summoner Name</label>
-                                    <input class="form-control input-lg" type="text" id="summonerInput" placeholder="Summoner Name" method="GET" value="<?php echo $summoner; ?>"/>
+                                    <input class="form-control input-lg" type="text" id="summonerInput" placeholder="Summoner Name"/>
                                 </div>
                                 <label>Region:
                                     <select id="regionSelect" class="form-control input-lg">
