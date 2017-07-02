@@ -90,6 +90,22 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="dayContainer">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- IP Planner responsive -->
+                            <ins class="adsbygoogle"
+                                style="display:block"
+                                data-ad-client="ca-pub-8696786899578479"
+                                data-ad-slot="7012269140"
+                                data-ad-format="auto"></ins>
+                            <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div id="summonerLoader" class="col-lg-12">
                     <div class="jumbotron">
                         <div id="summonerFormAlert" class="alert alert-danger alert-dismissible" role="alert">
