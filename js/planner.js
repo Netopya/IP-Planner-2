@@ -60,18 +60,24 @@ $(function() {
                 $("#numberOfChampsSelected").html(count);
                 $("#totalIPSum").html(totalcip);
 
-                $("#IPTimeResult").text(Math.round(totalcip/xtotalRate));
-
-                // If this is the first click, scroll to the bottom of the page to show the user the result section
-                if(!($("#IPTimeResultContainer").is(":visible"))) {
-                    $("#IPTimeResultContainer").fadeIn();
-                    //window.scrollTo(0,document.body.scrollHeight);
-                    $('html,body').animate({scrollTop: $(document).height()}, 600);
-                }
+                displayRate(totalcip);
             });
         }
     });
+
+    $("#manualIPCalcForm").submit(false);
 });
+
+function displayRate(totalip) {
+    $("#IPTimeResult").text(Math.round(totalip/xtotalRate));
+
+    // If this is the first click, scroll to the bottom of the page to show the user the result section
+    if(!($("#IPTimeResultContainer").is(":visible"))) {
+        $("#IPTimeResultContainer").fadeIn();
+        //window.scrollTo(0,document.body.scrollHeight);
+        $('html,body').animate({scrollTop: $(document).height()}, 600);
+    }
+}
 
 function loadPlayer() {
     var name = $("#summonerInput").val();
@@ -244,7 +250,7 @@ function parseMatchStats(summoner, matches)
 
         setTimeout(function() {
             $("#champSelectorContainer").fadeIn(400, function() {
-                //$('html,body').animate({scrollTop: $("#RecentIPanalysisContainer").offset().top}, 600);
+                $('html,body').animate({scrollTop: $("#RecentIPanalysisContainer").offset().top}, 600);
 
                 // Load Isotope
                 $('#portraitsContainer').isotope({
@@ -375,4 +381,26 @@ function searchChamps() {
         // scroll back to the search box
         $('html,body').animate({scrollTop: $("#championSearchGroup").offset().top}, 600);
     });
+}
+
+function skipChampSelect() {
+    $("#champSelectorContainer").animate({
+        opacity:0,
+        height:"toggle"
+    });
+
+    $("#specifyIPContainer").fadeIn();
+}
+
+function manualIPCalc() {
+    displayRate($("#manualIPtext").val());
+}
+
+function returnChampSelect() {
+    $("#champSelectorContainer").animate({
+        opacity:1,
+        height:"toggle"
+    });
+
+    $("#specifyIPContainer").fadeOut();
 }

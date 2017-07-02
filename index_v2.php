@@ -191,12 +191,23 @@
             </div>
             <div class="row" id="specifyIPContainer">
                 <div class="col-lg-12">
-                    <span>How much IP would you like? <input type="text" id="manualIPtext" onkeyup="manualIPCalc()" class="form-control"/></span>
+                    <div id="manual-back-button-container">
+                        <button class="btn btn-primary" type="submit" onclick="returnChampSelect()"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back to champion select</button>
+                    </div>
+                    <form id="manualIPCalcForm" class="form-inline">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">How much IP would you like?</div>
+                                <input type="text" id="manualIPtext" onkeyup="manualIPCalc()" class="form-control"/>
+                                <div class="input-group-addon"><img src="img/15px-IpPoints.png"/></div>
+                            </div>
+                        </div>
+                    </form>
                 </div>	
             </div>
             <div class="row" id="IPTimeResultContainer">
                 <div class="col-lg-12">
-                    <h1>It will take you <span id="IPTimeResult"></span> days to earn enough ip!</h1>
+                    <h1>It will take you <span id="IPTimeResult"></span> days to earn enough IP!</h1>
                 </div>	
             </div>
             <div id="table-container" class="row">

@@ -32,3 +32,12 @@
 #portraitsContainer {
     margin: 0 auto;
 }
+
+#manualIPtext {
+    display: inline;
+    width: auto;
+}
+
+#manual-back-button-container {
+    text-align: left;
+}
