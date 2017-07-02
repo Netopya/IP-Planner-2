@@ -62,6 +62,15 @@ $(function() {
 
                 displayRate(totalcip);
             });
+
+            $("#portraitsContainer").tooltip({
+                content: function () {
+                    return $(this).prop('title');
+                },
+                track:true,
+                show:false,
+                hide:{duration:100}
+            });
         }
     });
 
