@@ -213,21 +213,11 @@ function parseMatchStats(summoner, matches)
 
     $("#recentIPperiod").html(ipRate);
 
-    console.log(matches);
-    console.log(days);
-
-    var $table = $('#table');
-
-    $table.bootstrapTable({data: matches});
-
     var ctx = document.getElementById("myChart").getContext('2d');
 
     var ips = listIPValues(days);
-    console.log(ips);
 
-    var dayLabels = listDayLabels(days);
-
-    
+    var dayLabels = listDayLabels(days);  
 
     $("#summonerLoadingGifContainer").animate({
         opacity:0,

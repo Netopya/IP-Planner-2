@@ -13,13 +13,6 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-        <!-- Bootstrap-Table 1.11.1 -->
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
-
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
-
         <!-- Moment.js 2.18.1 -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
 
@@ -209,22 +202,6 @@
                 <div class="col-lg-12">
                     <h1>It will take you <span id="IPTimeResult"></span> days to earn enough IP!</h1>
                 </div>	
-            </div>
-            <div id="table-container" class="row">
-                <table class="table table-bordered" id="table">
-                    <thead>
-                        <tr>
-                            <th data-field="gameId">Game ID</th>
-                            <th data-field="day">Game Date</th>
-                            <th data-field="prettyDuration">Game Duration</th>
-                            <th data-field="gameMode">Game Mode</th>
-                            <th data-field="gameType">Game Type</th>
-                            <th data-field="outcome">Result</th>
-                            <th data-field="ip">Estimated IP</th>
-                            <th data-field="firstWin">Guessed First Win</th>
-                        </tr>
-                    </thead>
-                </table>
             </div>
         </div>
     </body>
