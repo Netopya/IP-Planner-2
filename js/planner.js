@@ -66,6 +66,13 @@ $(function() {
     });
 
     $("#manualIPCalcForm").submit(false);
+
+    var rememberedSummoner = Cookies.get('summoner');
+
+    if (rememberedSummoner) {
+        $("#summonerInput").val(rememberedSummoner);
+        $("#rememberMeChkBx").prop('checked', true);
+    }
 });
 
 function displayRate(totalip) {
