@@ -65,8 +65,7 @@
                 <div class="col-lg-12">
                     <ul class="nav nav-tabs">
                         <li role="presentation"><a href="../"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Netopyaplanet</a></li>
-                        <li role="presentation"><a href="index.php">IP Planner home</a></li>
-                        <li role="presentation" class="active"><a href="index_v2.html">IP Planner 2 beta</a></li>
+                        <li role="presentation" class="active"><a href="index.php">IP Planner home</a></li>
                         <li role="presentation"><a href="about.php">About &amp; Help</a></li>
                     </ul>
                 </div>
@@ -86,11 +85,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="alert alert-warning" role="alert">Welcome to the next version of IP Planner! Riot Games will be depreciating the API that IP Planner uses to retrieve summoner data on <strong>Monday, July 24th, 2017</strong>. The replacement API unfortunately does not have the ability to retrieve summoner IP information. However there is no need to worry! Development of IP Planner 2 has started and should be completed by the deadline. We will transition to a model where your IP rate is estimated based on statistics from your matches so you can still enjoy the features of the original IP Planner! Tryout the development version early here as IP Planner 2 comes to life.</div>
                 </div>
             </div>
             <div class="row">
